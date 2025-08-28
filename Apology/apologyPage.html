@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apology</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      /* 可选：添加一些样式 */
+      body {
+        background-color: pink;
+      }
+      .apology {
+        width: 100%;
+        height: 100vh;
+        position: relative;
+      }
+      .container {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+     
+      .container img {
+        width: 150px;
+      }
+      .container .kissimg{
+        width: 250px;
+      }
+      .container h5 {
+        margin: 10px;
+        font-size: 18px;
+      }
+      .button-container {
+        display: flex;
+        align-items: center;
+      }
+      .button-container button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5%;
+        color: #fff;
+        position: relative; /* 确保按钮可以使用 z-index */
+        z-index: 1; /* 默认 z-index */
+      }
+
+      .btnleft {
+        background-color: hsl(341, 82%, 44%);
+      }
+
+      .btnright {
+        margin-left: 10px;
+        height: 37.5px;
+        background-color: rgba(39, 85, 170, 0.918);
+        z-index: 2; /* 确保右侧按钮在左侧按钮之上 */
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="apology">
+      <div class="container" id="apologyContainer">
+        <!-- 插入图片 -->
+        <img src="imgsrc" id="img" alt="道歉图片" />
+        <h5 >可以跟我和好吗?</h5>
+        <div class="button-container">
+          <!-- 插入两个按钮 -->
+          <button
+            class="btnleft"
+            id="leftButton"
+            onclick="handleButtonClick('button1')"
+          >
+            和好
+          </button>
+          <button
+            class="btnright"
+            onclick="handleButtonClick('button2')"
+            id="button"
+          ></button>
+        </div>
+      </div>
+      <div class="container" id="kissContainer" style="display: none;">
+        <h5 >!!!喜欢你!! (>ω<) ❤❤</h5>
+        <img src="./imgs/kiss.gif"  class="kissimg" alt="道歉图片" />
+      </div>
+    </div>
+    <script>
+      // 定义一个变量
+      var message = '不要'
+
+      var imgsrc = './imgs/qingqiu.gif'
+
+
+      // 将变量的值插入到button标签中
+      document.getElementById('button').innerText = message
+
+      // 将 imgsrc 变量的值插入到 img 标签的 src 属性中
+      document.getElementById('img').src = imgsrc
+
+      function handleButtonClick(buttonId) {
+        switch (buttonId) {
+          case 'button1':
+            // 处理第一个按钮点击事件
+            document.getElementById('apologyContainer').style.display = 'none'
+            document.getElementById('kissContainer').style.display = 'block'
+            break
+          case 'button2':
+            // 处理第二个按钮点击事件
+            handleNegativeButtonClick()
+            break
+          default:
+            console.log('无效的按钮ID')
+        }
+      }
+
+      function handleNegativeButtonClick() {
+        switch (message) {
+          case '不要':
+            message = '对不起,我知道错了'
+            imgsrc = './imgs/hehao.gif'
+            break
+          case '对不起,我知道错了':
+            message = '给你买了菠萝吃'
+            imgsrc = './imgs/boluo.gif'
+            break
+          case '给你买了菠萝吃':
+            message = '欲擒故纵,我懂!'
+            imgsrc = './imgs/gouyin.gif'
+            break
+          case '欲擒故纵,我懂!':
+            message = '能不能给个台阶嘛'
+            imgsrc = './imgs/weiqv.gif'
+            break
+          case '能不能给个台阶嘛':
+            message = '原谅我嘛,对不起'
+            imgsrc = './imgs/ku.gif'
+            break
+          default:
+            console.log('无效的按钮ID')
+        }
+        // 更新消息和图片
+        document.getElementById('button').innerText = message
+        document.getElementById('img').src = imgsrc
+
+        // 放大左侧按钮
+        enlargeLeftButton()
+      }
+
+      function enlargeLeftButton() {
+        // 获取左侧按钮
+        var leftButton = document.getElementById('leftButton')
+        // 获取当前的 width 和 height
+        var computedStyle = window.getComputedStyle(leftButton)
+        var currentWidth = parseFloat(computedStyle.width)
+        var currentHeight = parseFloat(computedStyle.height)
+        var currentFontSize = parseFloat(computedStyle.fontSize)
+
+        // 计算新的 width 和 height
+        var newWidth = currentWidth * 1.8
+        var newHeight = currentHeight * 1.8
+        var newFontSize = currentFontSize * 1.8
+
+        // 更新 width 和 height
+        leftButton.style.width = newWidth + 'px'
+        leftButton.style.height = newHeight + 'px'
+        leftButton.style.fontSize = newFontSize + 'px'
+      }
+    </script>
+  </body>
+</html>
